@@ -15,7 +15,8 @@ pipeline {
             steps {
                 sh '''
                 pkill -f "python3 app.py" || true
-                BUILD_ID=dontKillMe nohup python3 app.py > flask.log 2>&1 </dev/null &
+                export BUILD_ID=dontKillMe
+                nohup python3 app.py > flask.log 2>&1 </dev/null &
                 sleep 5
                 '''
             }
