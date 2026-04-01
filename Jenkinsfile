@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     stages {
-        stage('Install Python Packages') {
+        stage('Install Dependencies') {
             steps {
                 sh '''
                 python3 --version
@@ -15,7 +15,8 @@ pipeline {
             steps {
                 sh '''
                 pkill -f "python3 app.py" || true
-                nohup python3 app.py > flask.log 2>&1 &
+                BUILD_ID=dontKillMe nohup python3 app.py > flask.log 2>&1 </dev/null &
+                sleep 5
                 '''
             }
         }
